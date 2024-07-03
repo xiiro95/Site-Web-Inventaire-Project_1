@@ -1,0 +1,321 @@
+  <!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="notification-container"></div>
+
+    <div class="navbar">
+        <a href="#" data-section="home">Home</a>
+        <a href="#" data-section="attribution">Attribuer équipement</a>
+        <a href="#" data-section="recuperation">Récupérer équipement</a>
+        <a href="#" data-section="creerprofil">Crée profil</a>
+        <a href="#" data-section="historique">historique</a>
+        <a href="#" data-section="config">Configuration</a>
+    </div>
+
+    <div class="main-content">
+        <div class="section" id="home">
+            <h1>Visualisation de l'inventaire</h1>
+            <h2>Articles par catégorie et statut</h2>
+            <div class="table-responsive">
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Total</th>
+                            <th>En Stock</th>
+                            <th>Attribué</th>
+                            <th>En Maintenance</th>
+                            <th>Retiré</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données seront insérées ici par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Dans la section "home" -->
+            <div class="section" id="home">
+                ...
+                <h2>Articles par Sous-Catégorie</h2>
+                <div class="table-responsive">
+                    <table id="subCategoryTable">
+                        <thead>
+                            <tr>
+                                <th>Sous-Catégorie</th>
+                                <th>Catégorie</th>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Attribué</th>
+                                <th>En Maintenance</th>
+                                <th>Retiré</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Les données seront insérées ici par JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h2>Articles par Lieu</h2>
+            <div id="locationsTables">
+                <!-- Les tableaux des lieux seront insérés ici par JavaScript -->
+            </div>
+        </div>
+
+        <div class="section" id="services">
+            <form action="ajouter_article.php" method="post">
+                <label for="category">Catégorie:</label>
+                <select name="category" id="category">
+                    <option value="ordinateur">Ordinateur</option>
+                    <option value="souris">Souris</option>
+                    <option value="clavier">Clavier</option>
+                </select>
+                <br><br>
+                <label for="serial">Numéro de série (laisser vide si non applicable):</label>
+                <input type="text" id="serial" name="serial">
+                <br><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+                <br><br>
+                <input type="submit" value="Ajouter Article">
+            </form>
+        </div>
+        
+        <div class="section" id="attribution">
+            <form id="formulaire_attribuer">
+                <div class="form-section">   
+                    <label for="item">Sélectionnez l'objet:</label>
+                    <input type="text" id="filterInput" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterOptions('filterInput', 'item', fetchData, 'itemdispo', ['description', 'serial_number'])">
+                    <select multiple name="item" id="item">
+                         <!-- Les options d'objet seront chargées ici -->
+                    </select> 
+                </div>
+
+                <div class="form-section">
+                    <label for="person">Sélectionnez la personne:</label>
+                    <input type="text" id="filterInput1" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterOptions('filterInput1', 'person', fetchData, 'person', ['name', 'email'])">
+                    <select multiple name="person" id="person">
+                         <!-- Les options d'objet seront chargées ici -->
+                    </select> 
+                </div>
+            
+                <input type="submit" value="Attribuer">
+            </form>
+        </div>
+
+        <div class="section" id="recuperation">
+            <form id="formulaire_recuperation">
+                <div class="form-section">   
+                    <label for="item">Sélectionnez l'objet:</label>
+                    <input type="text" id="filterInput2" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterOptions('filterInput2', 'item_attribuer', fetchData, 'itematt', ['description', 'serial_number', 'name', 'email'])">
+                    <select multiple name="item" id="item_attribuer">
+                         <!-- Les options d'objet seront chargées ici -->
+                    </select> 
+                </div>
+
+                <input type="submit" value="Récupérer">
+            </form>
+        </div>
+
+        <div class="section" id="creerprofil">
+
+            <form id="formulaire_addprofil">
+                <label for="item">Prénom & Nom</label>
+                <input type="text" id="addname" autocomplete="off" required>
+                
+                <label for="item">email</label>
+                <input type="text" id="addemail" autocomplete="off" required>
+
+                <input type="submit" value="Valider">
+            </form>
+
+            <input type="text" id="filterInput4" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterTable('person', 'filterInput4', '#tableprofil tbody', ['name', 'email'])">
+                <table id="tableprofil">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom & Prénom</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added here by JavaScript -->
+                    </tbody>
+                </table>
+        </div>
+
+        <div class="section" id="historique">
+            <h1>Item History</h1>
+            <input type="text" id="filterInput5" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterTable('history' , 'filterInput5','#itemHistoryTable tbody', [])">
+            <table id="itemHistoryTable">
+                <thead>
+                    <tr>
+                        <th>History ID</th>
+                        <th>Item ID</th>
+                        <th>Person ID</th>
+                        <th>Action</th>
+                        <th>Date</th>
+                        <th>Item Description</th>
+                        <th>Person Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="config">
+            <h1>Configuration</h1>
+
+            <div class="navbar2">
+                <a href="#" data-section="categoriesconfig">Catégories</a>
+                <a href="#" data-section="souscategoriesconfig">Sous Catégories</a>
+                <a href="#" data-section="locationsconfig">Locations</a>
+                <a href="#" data-section="itemsconfig">Items</a>
+                <a href="#" data-section="importCSV">ImportCSV</a>
+                <!-- Vous pouvez ajouter d'autres liens ici -->
+            </div>
+
+            <div class="section2" id="importCSV">
+                <h2>Importer des personnes depuis un CSV</h2>
+                <form id="form_import_csv" enctype="multipart/form-data">
+                    <label for="csv_file">Sélectionner un fichier CSV:</label>
+                    <input type="file" id="csv_file" name="csv_file" accept=".csv" required>
+                    <input type="submit" value="Importer">
+                </form>
+            </div>
+
+
+            <div class="section2" id="categoriesconfig">
+                <h2>Gérer les Catégories</h2>
+                <form id="form_add_category">
+                    <label for="category_name">Nom de la Catégorie:</label>
+                    <input type="text" id="category_name" name="category_name" required>
+                    <input type="submit" value="Ajouter Catégorie">
+                </form>
+                <input type="text" id="filterInputCategories" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterTable('categories', 'filterInputCategories', '#categoriesTable tbody', ['name'], undefined, undefined, 'true')">
+                <table id="categoriesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données des catégories seront insérées ici par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Dans la section "config" -->
+            <div class="section2" id="souscategoriesconfig">
+                <h2>Gérer les Sous-Catégories</h2>
+                <form id="form_add_subcategory">
+                    <label for="subcategory_name">Nom de la Sous-Catégorie:</label>
+                    <input type="text" id="subcategory_name" name="subcategory_name" required>
+                    <label for="category_id">Catégorie:</label>
+                    <select id="category_id" name="category_id" required>
+                        <!-- Les catégories seront chargées ici par JavaScript -->
+                    </select>
+                    <input type="submit" value="Ajouter Sous-Catégorie">
+                </form>
+                <input type="text" id="filterInputSubCategories" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterTable('subcategories', 'filterInputSubCategories', '#subcategoriesTable tbody', ['subcategory_name'], undefined, undefined, 'true')">
+                <table id="subcategoriesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Catégorie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données des sous-catégories seront insérées ici par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section2" id="locationsconfig">
+                <!-- Gestion des Locations -->
+                <h2>Gérer les Locations</h2>
+                <form id="form_add_location">
+                    <label for="location_name">Nom du Lieu:</label>
+                    <input type="text" id="location_name" name="location_name" required>
+                    <input type="submit" value="Ajouter Lieu">
+                </form>
+                <input type="text" id="filterInputLocations" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterTable('locations', 'filterInputLocations', '#locationsTable tbody', ['location_name'], undefined, undefined, 'true')">
+                <table id="locationsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données des lieux seront insérées ici par JavaScript -->
+                    </tbody>
+                </table>    
+            </div>  
+            
+            <div class="section2" id="itemsconfig">
+
+                <h2>Gérer les Items</h2>
+                <form id="form_add_item">
+                    <label for="item_category">Catégorie:</label>
+                    <select name="item_category" id="item_category" required>
+                        <!-- Les catégories seront chargées ici par JavaScript -->
+                    </select>
+                    <br><br>
+                    <label for="item_location">Location:</label>
+                    <select name="item_location" id="item_location" required>
+                        <!-- Les catégories seront chargées ici par JavaScript -->
+                    </select>
+                    <br><br>
+                    <label for="item_serial">Numéro de série (laisser vide si non applicable):</label>
+                    <input type="text" id="item_serial" name="item_serial">
+                    <br><br>
+                    <label for="item_description" >Description:</label>
+                    <textarea id="item_description" name="item_description" required></textarea>
+                    <br><br>
+                    <label for="item_quantity">Quantité:</label>
+                    <input type="number" id="item_quantity" name="item_quantity" min="1" value="1" required>
+                    <br><br>
+                    <input type="submit" value="Ajouter Items">
+                </form>
+                <input type="text" id="filterInputItems" autocomplete="off" placeholder="Tapez pour filtrer..." oninput="filterTable('items', 'filterInputItems', '#itemsTable tbody', ['description', 'serial_number'], 'locations', ['location_name'], 'true')">
+                <table id="itemsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Catégorie</th>
+                            <th>Numéro de série</th>
+                            <th>Description</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données des items seront insérées ici par JavaScript -->
+                    </tbody>
+                </table>
+                
+
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

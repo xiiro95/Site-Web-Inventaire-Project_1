@@ -1,0 +1,239 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f0f2f5;
+}
+
+.navbar {
+    height: 100vh;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #2c3e50;
+    padding-top: 20px;
+    transition: width 0.3s;
+}
+
+.navbar a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    text-align: left;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    background-color: #34495e;
+}
+
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    background-color: #ffffff;
+    width: calc(100% - 200px);
+    box-sizing: border-box;
+    transition: margin-left 0.3s, width 0.3s;
+}
+
+.main-content h1 {
+    color: #2c3e50;
+}
+
+.main-content .section h2 {
+    color: #34495e;
+}
+
+.main-content .section p {
+    color: #7f8c8d;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    margin: 1em 0;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    min-width: 100px; /* Minimum width for cells */
+    max-width: 100px; /* Maximum width for cells */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Use ellipsis if content overflows */
+}
+
+th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+td {
+    background-color: #ecf0f1;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+select, input[type="text"], input[type="date"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+/* Responsive Styles */
+@media (max-width: 768x) {
+    .navbar {
+        padding-top: 10px;
+    }
+
+    .navbar a {
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    table, th, td {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+}
+
+
+.navbar2 {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.navbar2 a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    width: 5em;
+    text-align: center;
+}
+
+.navbar2 a:hover {
+    background-color: #ddd;
+}
+
+.navbar2 a.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.saveTd {
+    padding: 0;
+    text-align: center;
+    width: 5em; /* Ajuste automatiquement à la taille du contenu */
+}
+
+.saveTd button {
+    width: 3em;
+    box-sizing: border-box; /* S'assure que le bouton prend toute la largeur de la cellule */
+}
+
+.buttondelte {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px;
+    background-image: url('images/Delete-80_icon-icons.webp'); /* Replace with your image path */
+    background-size: cover; /* Ensure the image covers the entire button */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image within the button */
+    border: none; /* Optional: Remove default border */
+    cursor: pointer; /* Optional: Change cursor to pointer on hover */
+}
+
+.error {
+    border: 2px solid red;
+}
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}
+
+
+
+#notification-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    z-index: 1000;
+}
+
+.notification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.notification.green {
+    background-color: #4caf50;
+}
+
+.notification.red {
+    background-color: #f44336;
+}
+
+.notification .close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
